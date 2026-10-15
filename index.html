@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriManage - Cost & Climate Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Authentication Section -->
+    <div id="auth-section" class="container active">
+        <h1>AgriOrbit</h1>
+        
+        <div id="login-box">
+            <h2>Login</h2>
+            <input type="text" id="login-name" placeholder="Farmer Name">
+            <input type="password" id="login-pass" placeholder="Password">
+            <button onclick="login()">Log In</button>
+            <p>New here? <a href="#" onclick="toggleAuth('register')">Register</a></p>
+        </div>
+
+        <div id="register-box" style="display: none;">
+            <h2>Register</h2>
+            <input type="text" id="reg-name" placeholder="Name of Farmer">
+            <input type="text" id="reg-crop" placeholder="Type of Farming / Crop">
+            <input type="text" id="reg-inputs" placeholder="Farm Inputs (e.g., Fertilizer, Tools)">
+            <input type="password" id="reg-pass" placeholder="Password">
+            <button onclick="register()">Register</button>
+            <p>Already have an account? <a href="#" onclick="toggleAuth('login')">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Section -->
+    <div id="dashboard-section" class="container" style="display: none;">
+        <header>
+            <h1 id="welcome-msg">Welcome</h1>
+            <button onclick="logout()">Log Out</button>
+        </header>
+
+        <nav>
+            <button onclick="switchTab('cost-tab')" class="tab-btn active-tab">Cost Management</button>
+            <button onclick="switchTab('climate-tab')" class="tab-btn">Climate Monitor</button>
+        </nav>
+
+        <!-- Cost Management Tab -->
+        <div id="cost-tab" class="tab-content active">
+            <h2>Track & Cut Unnecessary Costs</h2>
+            
+            <div class="cost-form">
+                <select id="expense-category">
+                    <option value="Tools">Farming Tools</option>
+                    <option value="Fertilizer">Fertilizer</option>
+                    <option value="Pesticides">Pesticides</option>
+                    <option value="Seeds/Management">Seeds & Management</option>
+                </select>
+                <input type="number" id="expense-amount" placeholder="Amount (Ksh)">
+                <button onclick="addExpense()">Add Cost</button>
+            </div>
+
+            <table id="expense-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-list">
+                    <!-- Expenses will appear here -->
+                </tbody>
+            </table>
+            <h3 class="total-cost">Total Costs: Ksh <span id="total-amount">0</span></h3>
+        </div>
+
+        <!-- Climate Monitoring Tab -->
+        <div id="climate-tab" class="tab-content" style="display: none;">
+            <h2>Climate & Weather Conditions</h2>
+            <div class="climate-card">
+                <h3>Current Condition: <span style="color: #2c6e49;">Sunny & Warm</span></h3>
+                <p><strong>Temperature:</strong> 24°C</p>
+                <p><strong>Rainfall Forecast:</strong> Low probability this week.</p>
+                <hr>
+                <h4>Farming Advice:</h4>
+                <p>The current dry spell is good for land preparation and harvesting mature crops. Hold off on planting new seeds until the rains begin to ensure proper germination.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<!-- AI Assistant Floating Button & Chatbox -->
+    <button id="ai-fab" onclick="toggleAIChat()">🌾 Ask AI</button>
+    
+    <div id="ai-chat-window" style="display: none;">
+        <div class="chat-header">
+            <h3>Farm AI Assistant</h3>
+            <button onclick="toggleAIChat()" style="background: transparent; font-size: 18px;">✖</button>
+        </div>
+        <div id="chat-body">
+            <div class="ai-msg">Hello! Ask me any farming question (e.g., "How to manage pests?", "What fertilizer for maize?").</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="ai-input" placeholder="Type your question..." onkeypress="handleAIKeyPress(event)">
+            <button onclick="askAI()">Send</button>
+        </div>
+    </div>
+</html>
